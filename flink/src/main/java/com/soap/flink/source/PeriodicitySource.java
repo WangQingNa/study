@@ -1,9 +1,9 @@
 package com.soap.flink.source;
 
-import com.google.common.collect.Lists;
 import jdk.nashorn.internal.runtime.logging.Logger;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.flink.calcite.shaded.com.google.common.collect.Lists;
 import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
 import java.util.List;

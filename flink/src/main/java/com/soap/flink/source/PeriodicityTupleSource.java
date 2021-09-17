@@ -1,7 +1,7 @@
 package com.soap.flink.source;
 
-import com.google.common.collect.Lists;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.calcite.shaded.com.google.common.collect.Lists;
 import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
 import java.util.List;
