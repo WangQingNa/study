@@ -47,11 +47,11 @@ public class TestOperator {
          * 1.第一次时,v1=v2;
          * 2.以后每次把结果放到v1继续计算
          */
-//        dataStreamSource.keyBy((KeySelector<Integer, Integer>) value -> value)
-//                .reduce((ReduceFunction<Integer>) (v1, v2) -> {
-//                    System.out.print("v1=" + v1 + ",v2=" + v2);
-//                    return v1 * v2;
-//                }).print("reduce=");
+        dataStreamSource.keyBy((KeySelector<Integer, Integer>) value -> value)
+                .reduce((ReduceFunction<Integer>) (v1, v2) -> {
+                    System.out.print("v1=" + v1 + ",v2=" + v2);
+                    return v1 * v2;
+                }).print("reduce=");
 
         /**
          * aggregation
