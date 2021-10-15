@@ -7,14 +7,17 @@ import org.apache.flink.connector.base.source.reader.RecordsWithSplitIds;
 import org.apache.flink.connector.base.source.reader.SourceReaderBase;
 import org.apache.flink.connector.base.source.reader.fetcher.SplitFetcherManager;
 import org.apache.flink.connector.base.source.reader.splitreader.SplitReader;
+import org.apache.flink.connector.base.source.reader.splitreader.SplitsChange;
 import org.apache.flink.connector.base.source.reader.synchronization.FutureCompletingBlockingQueue;
-import org.apache.flink.connector.base.source.reader.synchronization.FutureNotifier;
+//import org.apache.flink.connector.base.source.reader.synchronization.FutureNotifier;
 import org.apache.flink.core.io.InputStatus;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
 
@@ -33,6 +36,11 @@ public class SourceAPI {
 class MySplitEnumerator implements SplitEnumerator {
     @Override
     public void start() {
+
+    }
+
+    @Override
+    public void handleSplitRequest(int subtaskId, @Nullable String requesterHostname) {
 
     }
 
@@ -60,6 +68,16 @@ class MySplitEnumerator implements SplitEnumerator {
     public void close() throws IOException {
 
     }
+
+    @Override
+    public void notifyCheckpointComplete(long checkpointId) throws Exception {
+        SplitEnumerator.super.notifyCheckpointComplete(checkpointId);
+    }
+
+    @Override
+    public void notifyCheckpointAborted(long checkpointId) throws Exception {
+        SplitEnumerator.super.notifyCheckpointAborted(checkpointId);
+    }
 }
 
 
@@ -72,8 +90,17 @@ class MySplitEnumerator implements SplitEnumerator {
 class MySplitReader implements SplitReader {
 
     @Override
-    public RecordsWithSplitIds fetch() throws InterruptedException {
+    public RecordsWithSplitIds fetch() {
         return null;
+    }
+
+    /**
+     * @since 1.12
+     * @param splitsChange
+     */
+    @Override
+    public void handleSplitsChanges(SplitsChange splitsChange) {
+
     }
 
     @Override
@@ -82,9 +109,14 @@ class MySplitReader implements SplitReader {
     }
 
     @Override
-    public void handleSplitsChanges(Queue queue) {
+    public void close() throws Exception {
 
     }
+
+//    @Override
+//    public void handleSplitsChanges(Queue queue) {
+//
+//    }
 }
 
 /**
@@ -101,10 +133,20 @@ class MySourceReader implements SourceReader {
         return null;
     }
 
+    /**
+     * @since 1.12
+     * @param checkpointId
+     * @return
+     */
     @Override
-    public List snapshotState() {
+    public List snapshotState(long checkpointId) {
         return null;
     }
+
+//    @Override
+//    public List snapshotState() {
+//        return null;
+//    }
 
     @Override
     public CompletableFuture<Void> isAvailable() {
@@ -117,8 +159,23 @@ class MySourceReader implements SourceReader {
     }
 
     @Override
+    public void notifyNoMoreSplits() {
+
+    }
+
+    @Override
     public void handleSourceEvents(SourceEvent sourceEvent) {
 
+    }
+
+    @Override
+    public void notifyCheckpointComplete(long checkpointId) throws Exception {
+        SourceReader.super.notifyCheckpointComplete(checkpointId);
+    }
+
+    @Override
+    public void notifyCheckpointAborted(long checkpointId) throws Exception {
+        SourceReader.super.notifyCheckpointAborted(checkpointId);
     }
 
     @Override
@@ -130,13 +187,21 @@ class MySourceReader implements SourceReader {
 
 
 class MySourceReaderBase extends SourceReaderBase {
-
-    public MySourceReaderBase(FutureNotifier futureNotifier, FutureCompletingBlockingQueue elementsQueue, SplitFetcherManager splitFetcherManager, RecordEmitter recordEmitter, Configuration config, SourceReaderContext context) {
-        super(futureNotifier, elementsQueue, splitFetcherManager, recordEmitter, config, context);
+    public MySourceReaderBase(FutureCompletingBlockingQueue elementsQueue, SplitFetcherManager splitFetcherManager, RecordEmitter recordEmitter, Configuration config, SourceReaderContext context) {
+        super(elementsQueue, splitFetcherManager, recordEmitter, config, context);
     }
 
+//    public MySourceReaderBase(FutureNotifier futureNotifier, FutureCompletingBlockingQueue elementsQueue, SplitFetcherManager splitFetcherManager, RecordEmitter recordEmitter, Configuration config, SourceReaderContext context) {
+//        super(futureNotifier, elementsQueue, splitFetcherManager, recordEmitter, config, context);
+//    }
+
+//    @Override
+//    protected void onSplitFinished(Collection collection) {
+//
+//    }
+
     @Override
-    protected void onSplitFinished(Collection collection) {
+    protected void onSplitFinished(Map finishedSplitIds) {
 
     }
 
@@ -148,5 +213,15 @@ class MySourceReaderBase extends SourceReaderBase {
     @Override
     protected SourceSplit toSplitType(String s, Object o) {
         return null;
+    }
+
+    @Override
+    public void notifyCheckpointComplete(long checkpointId) throws Exception {
+        super.notifyCheckpointComplete(checkpointId);
+    }
+
+    @Override
+    public void notifyCheckpointAborted(long checkpointId) throws Exception {
+        super.notifyCheckpointAborted(checkpointId);
     }
 }

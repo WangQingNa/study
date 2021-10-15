@@ -1,8 +1,7 @@
 package com.soap.flink.outputtag;
 
 import org.apache.flink.api.common.typeinfo.BasicTypeInfo;
-import org.apache.flink.calcite.shaded.com.google.common.collect.Lists;
-import org.apache.flink.streaming.api.collector.selector.OutputSelector;
+import org.apache.flink.calcite.shaded.com.google.common.collect.Lists;;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
