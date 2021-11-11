@@ -10,6 +10,7 @@ import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.calcite.shaded.com.google.common.collect.Lists;
+import org.apache.flink.client.cli.CliFrontend;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.IterativeStream;
 import org.apache.flink.streaming.api.datastream.KeyedStream;
@@ -24,6 +25,7 @@ import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindo
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
+import org.apache.flink.yarn.cli.FlinkYarnSessionCli;
 
 import java.util.List;
 
@@ -100,7 +102,8 @@ public class TestOperator {
 //        IterativeStream<Integer> iterate = dss1.iterate(10000);
 //        iterate.map((MapFunction<Integer, Object>) value -> value).print("####");
 //        iterate.closeWith(iterate);
-
+        System.out.println(env.getExecutionPlan());
+//        FlinkYarnSessionCli
         env.execute("");
     }
 }

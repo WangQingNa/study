@@ -31,6 +31,14 @@
             <artifactId>flink-cep_${scala.binary.version}</artifactId>
             <version>${flink.version}</version>
         </dependency>
+        <!--flink cdc-->
+        <!-- https://mvnrepository.com/artifact/com.alibaba.ververica/flink-connector-mysql-cdc -->
+        <dependency>
+            <groupId>com.alibaba.ververica</groupId>
+            <artifactId>flink-connector-mysql-cdc</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
 
         <!-- web ui-->
         <dependency>
@@ -84,6 +92,14 @@
             <version>${flink.version}</version>
         </dependency>
         <!--flink connector end-->
+
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-yarn -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-yarn_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
 
         <!-- sql start -->
         <!-- table API java -->
