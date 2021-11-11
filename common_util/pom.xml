@@ -69,35 +69,29 @@
         <net.coobird.thumbnailator.version>0.4.8</net.coobird.thumbnailator.version>
         <grpc.version>0.13.2</grpc.version>
         <protobuf.version>3.1.0</protobuf.version>
+        <async-http-client.version>2.8.1</async-http-client.version>
     </properties>
 
-    <groupId>com.xyls</groupId>
+    <groupId>com.soap</groupId>
     <artifactId>common_util</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.22-SNAPSHOT</version>
-    <!--1.0.1- > 1.0.2 注释掉aes解密时候的 IllegalBlockSizeException 的 异常打印-->
-    <!--1.0.2- > 1.0.3 MailUtil密码需要AES加密，所以构造器添加解密代码， 加密串的计算见MailUtil的main方法-->
-    <!--1.0.3- > 1.0.4 增加jsonlib的依赖-->
-    <!--1.0.4- > 1.0.5 astjson在1.2.24以及之前版本存在高危安全漏洞，可远程执行服务器系统命令，可直接导致服务器被入侵。升级到1.2.28-->
-    <!--1.0.5- > 1.0.6  修改HttpClient post请求乱码bug-->
-    <!--1.0.6- > 1.0.7  增加cookie 操作类-->
-    <!--1.0.7- > 1.0.8  增加JaxbUtils 操作类,增加excel处理工具类,新增发送html格式的邮件-->
-    <!--1.0.8- > 1.0.9  增加 public static Date afterNSecDate(Date theDate, int nSecNum) -->
-    <!--1.0.10-> 1.0.11 增加freeMakerUtil -->
-    <!--1.0.9- > 1.0.10  jackon版本更新，文件压缩的方法变更到archiveUtil -->
-    <!--1.0.10- > 1.0.11 org.codehaus.janino 引入 logback过滤器需要依赖 ,增加freeMaker模板-->
-    <!--1.0.11- > 1.0.12 增加JsonSerializer-->
-    <!--1.0.12- > 1.0.13 增加ExportExcelUtil-->
-    <!--1.0.13- > 1.0.14  HttpTookit 新增超时时间设置方法-->
-    <!--1.0.14- > 1.0.15  增加UserAgentUtil类-->
-    <!--1.0.15- > 1.0.16  md5增加salt，增加excel处理方法，增加Pdf工具类-->
-    <!--1.0.16- > 1.0.17  DateUtil 类修改-->
-    <!--1.0.17- > 1.0.18  新增FileTypeUtil 提供根据文件头判断获取文件格式-->
-    <!--1.0.18- > 1.0.19  邮件发送端口修改为465-->
-    <!--1.0.19- > 1.0.20  jackson 版本2.7.0升级为2.7.3 ，原因2.7.0与spring 4.1.7 不兼容-->
-    <!--1.0.20- > 1.0.21 以xml标签形式导出excel -->
-    <!--1.0.21- > 1.0.22 以xml标签形式导出excel 兼容Microsoft Office -->
+    <version>1.1.0-SNAPSHOT</version>
+
     <dependencies>
+        <dependency>
+            <groupId>org.asynchttpclient</groupId>
+            <artifactId>async-http-client</artifactId>
+            <version>${async-http-client.version}</version>
+        </dependency>
+
+        <!-- Retrying-->
+        <dependency>
+            <groupId>com.github.rholder</groupId>
+            <artifactId>guava-retrying</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+
 
         <dependency>
             <groupId>org.apache.ant</groupId>
@@ -444,8 +438,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>8</source>
+                    <target>8</target>
                     <encoding>utf8</encoding>
                 </configuration>
             </plugin>
